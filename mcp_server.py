@@ -14,11 +14,16 @@ mcp = FastMCP(
 # ── HTTP helper ──────────────────────────────────────────────
 async def call_idig(path: str, params: dict) -> dict:
     """Make a real HTTP call to the iDig Lambda API."""
-    if "token" in params:
-        params["token"] = quote(params["token"], safe="")
-    async with httpx.AsyncClient(timeout=30) as client:
-        r = await client.get(f"{IDIG_BASE}{path}", params=params)
-        return r.json()
+    try:
+        async with httpx.AsyncClient(timeout=30) as client:
+            r = await client.get(f"{IDIG_BASE}{path}", params=params)
+            print(f"iDig API call: {r.url}")
+            print(f"iDig API status: {r.status_code}")
+            print(f"iDig API response: {r.text}")
+            return r.json()
+    except Exception as e:
+        print(f"iDig API error: {e}")
+        raise
 
 # ── Tools ────────────────────────────────────────────────────
 
