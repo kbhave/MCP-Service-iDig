@@ -1,21 +1,21 @@
 from mcp.server.fastmcp import FastMCP
 import httpx
 import os
-import uvicorn
 
 IDIG_BASE = "https://api.softricks.net/idig"
+PORT = int(os.environ.get("PORT", 8080))
 
-mcp = FastMCP("iDig DNS API")
+mcp = FastMCP(
+    "iDig DNS API",
+    host="0.0.0.0",
+    port=PORT,
+)
 
 async def call_idig(path: str, params: dict) -> dict:
-    try:
-        async with httpx.AsyncClient(timeout=30) as client:
-            r = await client.get(f"{IDIG_BASE}{path}", params=params)
-            print(f"URL: {r.url} STATUS: {r.status_code}", flush=True)
-            return r.json()
-    except Exception as e:
-        print(f"ERROR: {e}", flush=True)
-        raise
+    async with httpx.AsyncClient(timeout=30) as client:
+        r = await client.get(f"{IDIG_BASE}{path}", params=params)
+        print(f"URL: {r.url} STATUS: {r.status_code}", flush=True)
+        return r.json()
 
 @mcp.tool()
 async def dns_lookup(domain: str, token: str, rr: str = "a") -> dict:
@@ -88,13 +88,4 @@ async def subdomain_discover(domain: str, token: str) -> dict:
     return await call_idig("/subdomains", {"d": domain, "token": token})
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    print(f"Starting on port {port}", flush=True)
-    app = mcp.sse_app()
-    uvicorn.run(
-        app,
-        host="0.0.0.0",
-        port=port,
-        proxy_headers=True,
-        forwarded_allow_ips="*"
-    )
+    mcp.run(transport="sse")
