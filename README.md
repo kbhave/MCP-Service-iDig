@@ -1,6 +1,7 @@
 # iDig DNS MCP Server
 
-A remote MCP server exposing **14 professional DNS diagnostic tools** from the [iDig API](https://api.softricks.net/idig/docs) — built by Kedar Bhave ( [Softricks](https://softricks.net) ).
+A remote MCP server exposing **14 professional DNS diagnostic tools** from the [iDig API](https://api.softricks.net/idig/docs) 
+— built by Kedar Bhave ( [Softricks](https://softricks.net) ).
 
 Connect any MCP-compatible AI client (Claude Desktop, Cursor, Windsurf, and more) to real DNS infrastructure. Diagnose outages, audit email security, validate DNSSEC, check SSL certificates, trace propagation across 16 global resolvers, and more — all in plain English.
 
