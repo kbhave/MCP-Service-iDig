@@ -1,0 +1,19 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "net.softricks.idig",
+  "description": "Professional DNS diagnostics — 14 tools covering DNS lookup, DNSSEC, email security (SPF/DKIM/DMARC), SSL/TLS, propagation across 16 global resolvers, TTL advisory, zone consistency, subdomain discovery, and geolocation.",
+  "repository": {
+    "url": "https://github.com/kbhave/MCP-Service-iDig",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "other",
+      "transport": {
+        "type": "sse",
+        "url": "https://mcp.softricks.net/sse"
+      }
+    }
+  ]
+}
