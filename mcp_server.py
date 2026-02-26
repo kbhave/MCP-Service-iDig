@@ -5,10 +5,7 @@ import os
 IDIG_BASE = "https://api.softricks.net/idig"
 PORT = int(os.environ.get("PORT", 8000))
 
-mcp = FastMCP(
-    "iDig DNS API",
-    description="Professional DNS diagnostics — lookups, DNSSEC, email security, propagation, SSL, geolocation and more."
-)
+mcp = FastMCP("iDig DNS API")
 
 # ── HTTP helper ──────────────────────────────────────────────
 async def call_idig(path: str, params: dict) -> dict:
