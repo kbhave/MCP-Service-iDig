@@ -3,7 +3,7 @@ import httpx
 import os
 
 IDIG_BASE = "https://api.softricks.net/idig"
-PORT = int(os.environ.get("PORT", 8000))
+PORT = int(os.environ.get("PORT", 8080))
 
 mcp = FastMCP(
     "iDig DNS API",
