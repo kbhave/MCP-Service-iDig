@@ -7,7 +7,6 @@ IDIG_BASE = "https://api.softricks.net/idig"
 
 mcp = FastMCP("iDig DNS API")
 
-# ── HTTP helper ──────────────────────────────────────────────
 async def call_idig(path: str, params: dict) -> dict:
     try:
         async with httpx.AsyncClient(timeout=30) as client:
@@ -17,8 +16,6 @@ async def call_idig(path: str, params: dict) -> dict:
     except Exception as e:
         print(f"ERROR: {e}", flush=True)
         raise
-
-# ── Tools ────────────────────────────────────────────────────
 
 @mcp.tool()
 async def dns_lookup(domain: str, token: str, rr: str = "a") -> dict:
@@ -94,4 +91,10 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     print(f"Starting on port {port}", flush=True)
     app = mcp.sse_app()
-uvicorn.run(app, host="0.0.0.0", port=port, proxy_headers=True, forwarded_allow_ips="*")
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=port,
+        proxy_headers=True,
+        forwarded_allow_ips="*"
+    )
