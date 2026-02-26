@@ -5,7 +5,11 @@ import os
 IDIG_BASE = "https://api.softricks.net/idig"
 PORT = int(os.environ.get("PORT", 8000))
 
-mcp = FastMCP("iDig DNS API")
+mcp = FastMCP(
+    "iDig DNS API",
+    host="0.0.0.0",   # required by Railway — listen on all interfaces
+    port=PORT,         # Railway injects PORT as an environment variable
+)
 
 # ── HTTP helper ──────────────────────────────────────────────
 async def call_idig(path: str, params: dict) -> dict:
@@ -87,8 +91,4 @@ async def subdomain_discover(domain: str, token: str) -> dict:
     return await call_idig("/subdomains", {"d": domain, "token": token})
 
 if __name__ == "__main__":
-    mcp.run(
-        transport="sse",
-        host="0.0.0.0",   # required by Railway — must listen on all interfaces
-        port=PORT,         # Railway injects PORT as an environment variable
-    )
+    mcp.run(transport="sse")
