@@ -1,6 +1,6 @@
 # iDig DNS MCP Server
 
-A remote MCP server exposing **14 professional DNS diagnostic tools** from the [iDig API](https://api.softricks.net/idig/docs) 
+A remote MCP server exposing **17 professional DNS diagnostic tools** from the [iDig API](https://api.softricks.net/idig/docs) 
 — built by Kedar Bhave ( [Softricks](https://softricks.net) ).
 
 Connect any MCP-compatible AI client (Claude Desktop, Cursor, Windsurf, and more) to real DNS infrastructure. Diagnose outages, audit email security, validate DNSSEC, check SSL certificates, trace propagation across 16 global resolvers, and more — all in plain English.
@@ -73,6 +73,9 @@ All tools require a `token` parameter. Get your token at [api.softricks.net/idig
 | `subdomain_discover` | Probe 75 common subdomains — surfaces exposed dev/staging environments |
 | `geo_lookup` | Geolocation, ISP, ASN, CDN detection, hosting flag |
 | `domain_status` | EPP registrar lock status — transfer-ready, delete lock, serverHold, pendingDelete |
+| `blacklist_check` | IP blacklist / DNSBL check — Spamhaus, Barracuda, SpamCop, SORBS, and more |
+| `whois_lookup` | Parsed WHOIS data — registrar, expiry, domain age, nameservers, EPP status |
+| `http_check` | HTTP/HTTPS reachability — status codes, redirect chain, HSTS, HTTP→HTTPS redirect |
 
 ---
 
@@ -95,6 +98,15 @@ We're migrating example.com to a new host next week — are the TTLs safe? token
 ```
 ```
 What subdomains does example.com have exposed? token YOUR_TOKEN
+```
+```
+Are any of example.com's IPs on a blacklist? token YOUR_TOKEN
+```
+```
+Get WHOIS info for example.com — token YOUR_TOKEN
+```
+```
+Is example.com reachable over HTTPS? token YOUR_TOKEN
 ```
 
 ---

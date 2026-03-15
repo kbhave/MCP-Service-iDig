@@ -87,5 +87,20 @@ async def subdomain_discover(domain: str, token: str) -> dict:
     """Discover subdomains by probing 75 common names. Surfaces exposed dev/staging environments."""
     return await call_idig("/subdomains", {"d": domain, "token": token})
 
+@mcp.tool()
+async def blacklist_check(domain: str, token: str) -> dict:
+    """IP blacklist / DNSBL check. Tests A-record and MX IPs against Spamhaus, Barracuda, SpamCop, SORBS, and more."""
+    return await call_idig("/blacklist/check", {"d": domain, "token": token})
+
+@mcp.tool()
+async def whois_lookup(domain: str, token: str) -> dict:
+    """Parsed WHOIS: registrar, creation/expiry dates, domain age, nameservers, EPP status, DNSSEC status."""
+    return await call_idig("/whois", {"d": domain, "token": token})
+
+@mcp.tool()
+async def http_check(domain: str, token: str) -> dict:
+    """HTTP/HTTPS reachability: status codes, redirect chain, HSTS header, HTTP→HTTPS redirect detection."""
+    return await call_idig("/http/check", {"d": domain, "token": token})
+
 if __name__ == "__main__":
     mcp.run(transport="sse")
