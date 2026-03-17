@@ -19,12 +19,12 @@ async def call_idig(path: str, params: dict) -> dict:
 
 @mcp.tool()
 async def dns_lookup(domain: str, token: str, rr: str = "a") -> dict:
-    """Look up DNS records for a domain. Record types: a, aaaa, ns, mx, txt, soa, caa, srv, cname, ds, tlsa, all."""
+    """Look up DNS records for a domain. Record types: a, aaaa, ns, mx, txt, soa, caa, srv, cname, ds, tlsa, https, svcb, any, all."""
     return await call_idig("/", {"d": domain, "rr": rr, "token": token})
 
 @mcp.tool()
 async def email_security_audit(domain: str, token: str) -> dict:
-    """Full SPF, DKIM, DMARC audit with A-F grade and prioritized fix recommendations."""
+    """Full SPF, DKIM, DMARC, and BIMI audit with A-F grade and prioritized fix recommendations."""
     return await call_idig("/email/security", {"d": domain, "token": token})
 
 @mcp.tool()
@@ -84,7 +84,7 @@ async def ssl_check(domain: str, token: str) -> dict:
 
 @mcp.tool()
 async def subdomain_discover(domain: str, token: str) -> dict:
-    """Discover subdomains by probing 75 common names. Surfaces exposed dev/staging environments."""
+    """Discover subdomains by probing 75 common names plus crt.sh Certificate Transparency logs. Surfaces exposed dev/staging environments."""
     return await call_idig("/subdomains", {"d": domain, "token": token})
 
 @mcp.tool()
@@ -101,6 +101,16 @@ async def whois_lookup(domain: str, token: str) -> dict:
 async def http_check(domain: str, token: str) -> dict:
     """HTTP/HTTPS reachability: status codes, redirect chain, HSTS header, HTTP→HTTPS redirect detection."""
     return await call_idig("/http/check", {"d": domain, "token": token})
+
+@mcp.tool()
+async def zone_axfr(domain: str, token: str) -> dict:
+    """AXFR zone transfer vulnerability check. Tests whether any authoritative NS allows public zone transfers (critical misconfiguration)."""
+    return await call_idig("/zone/axfr", {"d": domain, "token": token})
+
+@mcp.tool()
+async def dane_validate(domain: str, token: str, port: int = 443) -> dict:
+    """DANE/TLSA validation: cross-validates TLSA DNS records against the live TLS certificate. Supports all four TLSA usage types."""
+    return await call_idig("/dane/validate", {"d": domain, "token": token, "port": port})
 
 if __name__ == "__main__":
     mcp.run(transport="sse")

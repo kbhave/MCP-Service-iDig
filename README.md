@@ -1,6 +1,6 @@
 # iDig DNS MCP Server
 
-A remote MCP server exposing **17 professional DNS diagnostic tools** from the [iDig API](https://api.softricks.net/idig/docs) 
+A remote MCP server exposing **19 professional DNS diagnostic tools** from the [iDig API](https://api.softricks.net/idig/docs) 
 — built by Kedar Bhave ( [Softricks](https://softricks.net) ).
 
 Connect any MCP-compatible AI client (Claude Desktop, Cursor, Windsurf, and more) to real DNS infrastructure. Diagnose outages, audit email security, validate DNSSEC, check SSL certificates, trace propagation across 16 global resolvers, and more — all in plain English.
@@ -59,10 +59,10 @@ All tools require a `token` parameter. Get your token at [api.softricks.net/idig
 
 | Tool | Description |
 |---|---|
-| `dns_lookup` | Look up any DNS record type: A, AAAA, MX, NS, TXT, SOA, CAA, SRV, CNAME, DS, TLSA |
+| `dns_lookup` | Look up any DNS record type: A, AAAA, MX, NS, TXT, SOA, CAA, SRV, CNAME, DS, TLSA, HTTPS, SVCB |
 | `resolve_check` | Resolution diagnostics — returns ok / nxdomain / servfail / timeout / degraded |
 | `diagnose` | Full diagnosis combining resolution + DNSSEC — start here when something is broken |
-| `email_security_audit` | SPF, DKIM, DMARC audit with A–F grade and prioritized fix recommendations |
+| `email_security_audit` | SPF, DKIM, DMARC, and BIMI audit with A–F grade and prioritized fix recommendations |
 | `mx_check` | MX health + provider detection (Google Workspace, M365, Proofpoint, 35+ providers) |
 | `dnssec_validate` | DNSSEC chain of trust — returns secure / insecure / bogus / indeterminate |
 | `dnssec_health` | Key inventory, signature expiry, algorithm assessment, rollover readiness |
@@ -70,12 +70,14 @@ All tools require a `token` parameter. Get your token at [api.softricks.net/idig
 | `ssl_check` | Certificate validity, expiry countdown, domain match, issuer, chain completeness |
 | `ttl_check` | TTL advisory with step-by-step migration lowering plan |
 | `zone_consistency` | Compare all authoritative nameservers — catches lame delegation and SOA mismatches |
-| `subdomain_discover` | Probe 75 common subdomains — surfaces exposed dev/staging environments |
+| `subdomain_discover` | Probe 75 common subdomains + crt.sh Certificate Transparency logs — surfaces exposed dev/staging environments |
 | `geo_lookup` | Geolocation, ISP, ASN, CDN detection, hosting flag |
 | `domain_status` | EPP registrar lock status — transfer-ready, delete lock, serverHold, pendingDelete |
 | `blacklist_check` | IP blacklist / DNSBL check — Spamhaus, Barracuda, SpamCop, SORBS, and more |
 | `whois_lookup` | Parsed WHOIS data — registrar, expiry, domain age, nameservers, EPP status |
 | `http_check` | HTTP/HTTPS reachability — status codes, redirect chain, HSTS, HTTP→HTTPS redirect |
+| `zone_axfr` | AXFR zone transfer vulnerability check — tests if any NS allows public zone transfers |
+| `dane_validate` | DANE/TLSA validation — cross-validates TLSA records against live TLS certificate |
 
 ---
 
@@ -107,6 +109,12 @@ Get WHOIS info for example.com — token YOUR_TOKEN
 ```
 ```
 Is example.com reachable over HTTPS? token YOUR_TOKEN
+```
+```
+Check if example.com is vulnerable to zone transfers — token YOUR_TOKEN
+```
+```
+Validate DANE/TLSA records for example.com — token YOUR_TOKEN
 ```
 
 ---

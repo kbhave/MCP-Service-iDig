@@ -2,12 +2,12 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "net.softricks/idig-dns",
   "title": "iDig DNS API",
-  "description": "Professional DNS diagnostics: 17 tools for DNS, DNSSEC, email security, SSL, propagation, blacklist, WHOIS, and HTTP checks.",
+  "description": "Professional DNS diagnostics: 19 tools for DNS, DNSSEC, email security, SSL, DANE, propagation, blacklist, WHOIS, HTTP, and zone transfer checks.",
   "repository": {
     "url": "https://github.com/kbhave/MCP-Service-iDig",
     "source": "github"
   },
-  "version": "1.1.0",
+  "version": "1.2.0",
   "remotes": [
     {
       "type": "sse",
