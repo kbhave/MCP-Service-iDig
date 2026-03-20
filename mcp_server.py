@@ -34,7 +34,7 @@ async def dnssec_validate(domain: str, token: str) -> dict:
 
 @mcp.tool()
 async def dnssec_health(domain: str, token: str) -> dict:
-    """DNSSEC health report: key inventory, signature expiry, algorithm assessment, rollover readiness."""
+    """DNSSEC health report: key inventory, signature expiry, algorithm assessment, DS at parent, rollover readiness, full chain of trust (Root → TLD → Domain) with chain_intact flag and broken-link identification, warnings, and recommendations."""
     return await call_idig("/dnssec/health", {"d": domain, "token": token})
 
 @mcp.tool()
