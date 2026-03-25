@@ -113,4 +113,4 @@ async def dane_validate(domain: str, token: str, port: int = 443) -> dict:
     return await call_idig("/dane/validate", {"d": domain, "token": token, "port": port})
 
 if __name__ == "__main__":
-    mcp.run(transport="streamable-http")
+    mcp.run(transport="sse")

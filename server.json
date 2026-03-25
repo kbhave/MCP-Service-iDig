@@ -10,8 +10,8 @@
   "version": "1.2.0",
   "remotes": [
     {
-      "type": "streamable-http",
-      "url": "https://mcp.softricks.net/mcp/"
+      "type": "sse",
+      "url": "https://mcp.softricks.net/sse"
     }
   ]
 }
